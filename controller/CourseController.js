@@ -39,7 +39,7 @@ exports.postCourse = async(req,res)=>{
     }
 }
 
-//having doubts on updateCourses 
+
 
 exports.updateCourse = async (req, res) => {
     try {
