@@ -25,14 +25,13 @@ exports.getSingleCourse = async(req,res)=>{
 
 exports.postCourse = async(req,res)=>{
     try{
-        const course = await Course.findOne({course_id:req.body.id})
-        if(!course){
-            const addedcourse = await Course.create(req.body)
-            res.json(addedcourse)
+        const {course_id,department,degree} = req.body
+        const existingCourse = await Course.findOne({course_id:req.body.course_id})
+        if(existingCourse){
+            return res.status(400).json({ msg: 'course already exist..' });
         }
-        else{
-            res.json({msg:'Course already exist'})
-        }
+        const addedcourse = await Course.create({course_id,department,degree})
+        res.json(addedcourse)
     }
     catch(err){
         res.status(500).json({msg:err.message})
